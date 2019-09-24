@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Picture;
-use BigV\ImageCompare;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -27,7 +26,9 @@ class SearchController extends Controller
         $searchDb   = null;
         $pictureFlag = false;
         $itemData = null;
+        $allPictures = [];
         $pictures = [];
+        $dataArray = [];
 
         if ($searchUnit === 'itemCode') {
             $request->validate([
@@ -42,13 +43,9 @@ class SearchController extends Controller
             $searchUser = $request->input('itemName');
             $searchDb = 'item_name';
         } else if ($searchUnit === 'itemPicture') {
-            $request->validate([
-                'itemPicture' => 'required|image'
-            ]);
             $pictureFlag = true;
-            $searchUser = $request->file('itemPicture');
             $searchDb = 'item_images';
-        } else if( $searchUnit === 'itemCategory' ){
+        } else if ($searchUnit === 'itemCategory') {
             $request->validate([
                 'itemCategory' => 'required'
             ]);
@@ -57,21 +54,29 @@ class SearchController extends Controller
         }
 
         if ($pictureFlag) {
-            $image = new ImageCompare();
-            $allPictures = Picture::pluck('item_images');
+            $find = ['"', '[', ']'];
+            $allPictures = explode('|', Picture::pluck('item_images'));
+            $allData = Picture::select('item_images', 'item_category')->get()->all();
 
-            foreach ($allPictures as $picture) {
-                $pic = explode('|', $picture);
-                foreach ($pic as $p) {
-                    if ($image->compare($searchUser, 'image/' . $p) < 25) {
-                        array_push($pictures, $p);
-                    }
+            foreach ($allPictures as $pic) {
+                array_push($pictures, str_replace($find, '', $pic));
+            }
+
+            for ($i = 0; $i < count($allData); $i++) {
+                $images = $allData[$i]['item_images'];
+                $category = $allData[$i]['item_category'];
+                if (strpos($images, '|') !== false) {
+                    $images = explode('|', $images);
+                } else { 
+                    
                 }
+                print_r($images);
             }
         } else {
             $itemData = Picture::where($searchDb, $searchUser)->first();
         }
-        
+
+        dd($allData);
 
         return view('/search', [
             'itemData' => $itemData,

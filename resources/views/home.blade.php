@@ -7,74 +7,45 @@
 
             <h1 class="mb-5 text-center mt-5">Picture Recognition Application</h1>
 
-            <button data-toggle="modal" style="display: block; width: 100%; margin-bottom: 1rem" data-target="#addItem" aria-expanded="false" type="button" class="btn btn-outline-primary">Add New Item</button>
+            <button data-toggle="collapse" style="display: block; width: 100%; margin-bottom: 1rem" data-target="#addItem" aria-expanded="false" type="button" class="btn btn-outline-primary">Add New Item</button>
 
-            <div class="modal fade" tabindex="-1" role="dialog" id="addItem">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add New Item</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/storeitem" method="POST" enctype="multipart/form-data">
+            <div class="collapse" id="addItem">
+                <div class="container register z-elevation-2">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="text-center">Add Item Details Below.</h1>
+                            <br />
+                            <form enctype="multipart/form-data" action="/storeitem" method="POST">
                                 @csrf
-                                <div class="form-group">
-                                    <label for="itemNumber">Item Number</label>
-                                    <input name="itemNumber" type="number" required class="form-control" id="itemNumber" />
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-exchange"></i></span>
+                                    <input name="itemNumber" type="number" placeholder="Item Number" required class="form-control" id="itemNumber" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemCode">Item Code</label>
-                                    <input name="itemCode" type="number" required class="form-control" id="itemCode" />
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-wrench"></i></span>
+                                    <input name="itemCode" type="number" placeholder="Item Code" required class="form-control" id="itemCode" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemName">Item Name</label>
-                                    <input type="text" required class="form-control" id="itemName" name="itemName" />
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-book"></i></span>
+                                    <input type="text" required class="form-control" id="itemName" name="itemName" placeholder="Item Name" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemCategory">Item Category</label>
-                                    <input type="text" required class="form-control" id="itemCategory" name="itemCategory" />
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-pie-chart"></i></span>
+                                    <input type="text" required class="form-control" id="itemCategory" name="itemCategory" placeholder="Item Category" />
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemDescription">Item Description</label>
-                                    <textarea type="text" required class="form-control" id="itemDescription" name="itemDescription" rows="4"></textarea>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-italic"></i></span>
+                                    <textarea type="text" required class="form-control" id="itemDescription" placeholder="Item Description" name="itemDescription" rows="4"></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemImages">Attach Images</label> <br />
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i class="fa fa-link"></i></span>
                                     <input multiple type="file" id="itemPictures" name="itemPictures[]" required />
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button style="width: 100%; display: block" data-toggle="modal" data-target="#addSupplier" aria-expanded="false" type="button" class="btn btn-outline-primary">Supplier Details</button>
-
-            <div class="modal fade" tabindex="-1" role="dialog" id="addSupplier">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Supploer Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/storeitem" method="POST">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="itemNumber">Item Number</label>
-                                    <input name="itemNumber" type="number" required class="form-control" id="itemNumber" />
+                                <div class="preview" id="previewImages"></div>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon icon d-flex justify-content-center align-items-center pr-3"><i></i></span>
+                                    <button type="submit" class="btn btn-block btn-primary" id="btnSubmit1">Submit Data</button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="itemCode">Item Code</label>
-                                    <input name="itemCode" type="number" required class="form-control" id="itemCode" />
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -85,5 +56,30 @@
 
         </div>
     </div>
-</div>
-@endsection
+
+
+    <script>
+        $(document).ready(function() {
+
+            // Multiple images preview in browser
+            var imagesPreview = function(input, placeToInsertImagePreview) {
+
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+
+            $('#itemPictures').change(function() {
+                imagesPreview(this, '#previewImages');
+            });
+
+        });
+    </script>
+    @endsection

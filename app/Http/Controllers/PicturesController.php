@@ -25,7 +25,7 @@ class PicturesController extends Controller
             'itemName' => 'required',
             'itemCategory' => 'required',
             'itemPictures' => 'required',
-            'itemDescription' => 'required|min:2'
+            'itemDescription' => 'required'
         ]);
 
         // If pictures are uploaded
@@ -46,7 +46,7 @@ class PicturesController extends Controller
             'item_description' => $request->input('itemDescription'),
             'item_images' => implode('|', $pictures)
         ]);
-
+        
         // Redirect to homepage
         return redirect('/search');
     }

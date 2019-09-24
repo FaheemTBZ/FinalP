@@ -7,7 +7,7 @@
 
             <h1 class="text-center mt-5">Search Pictures Below..</h1>
 
-            <form action="/searchpicture" method="POST" enctype="multipart/form-data">
+            <form action="/searchpicture" method="POST" id="theItemForm" enctype="multipart/form-data">
 
             @csrf
             <div class="form-group">
@@ -31,11 +31,6 @@
                     <label for="itemName">Item Name</label>
                     <input type="text" id="itemName" name="itemName" class="form-control" />
                 </div>
-            </div>
-            <div class="collapse" id="itemPictureContainer">
-                <label for="itemPicture">Upload a Picture:</label> <br />
-                <input type="file" id="itemPicture" name="itemPicture" />
-                <br /><br />
             </div>
             <div class="collapse" id="itemCategoryContainer">
                 <div class="form-group">
@@ -97,7 +92,7 @@
                 $('#itemUnit').val('itemName');
             } else if (option === '3') {
                 $('#itemUnit').val('itemPicture');
-                $('#itemPictureContainer').collapse('show');
+                $('#theItemForm').submit();
             } else if (option === '4') {
                 $('#itemUnit').val('itemCategory');
                 $('#itemCategoryContainer').collapse('show');
