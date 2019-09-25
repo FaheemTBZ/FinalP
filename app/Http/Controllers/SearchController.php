@@ -25,23 +25,27 @@ class SearchController extends Controller
         $searchUser = null;
         $searchDb   = null;
         $pictureFlag = false;
+        $categoryFlag = false;
+        $otherFlag = false;
         $itemData = null;
         $allPictures = [];
-        $pictures = [];
-        $dataArray = [];
+        $allData = null;
+        $allCat = null;
 
         if ($searchUnit === 'itemCode') {
-            $request->validate([
+            $this->validate($request, [
                 'itemCode' => 'required'
             ]);
             $searchUser = $request->input('itemCode');
             $searchDb = 'item_code';
+            $otherFlag = true;
         } else if ($searchUnit === 'itemName') {
             $request->validate([
                 'itemName' => 'required'
             ]);
             $searchUser = $request->input('itemName');
             $searchDb = 'item_name';
+            $otherFlag = true;
         } else if ($searchUnit === 'itemPicture') {
             $pictureFlag = true;
             $searchDb = 'item_images';
@@ -49,38 +53,64 @@ class SearchController extends Controller
             $request->validate([
                 'itemCategory' => 'required'
             ]);
+            $categoryFlag = true;
             $searchUser = $request->input('itemCategory');
             $searchDb = 'item_category';
         }
 
         if ($pictureFlag) {
-            $find = ['"', '[', ']'];
-            $allPictures = explode('|', Picture::pluck('item_images'));
             $allData = Picture::select('item_images', 'item_category')->get()->all();
+            $maxLength = count($allData);
 
-            foreach ($allPictures as $pic) {
-                array_push($pictures, str_replace($find, '', $pic));
-            }
+            for ($i = 0; $i < $maxLength; $i++) {
 
-            for ($i = 0; $i < count($allData); $i++) {
                 $images = $allData[$i]['item_images'];
                 $category = $allData[$i]['item_category'];
+
                 if (strpos($images, '|') !== false) {
                     $images = explode('|', $images);
-                } else { 
-                    
+                    foreach ($images as $image) {
+                        $arr = array(
+                            'category' => $category,
+                            'pic' => $image
+                        );
+                        array_push($allPictures, $arr);
+                    }
+                } else {
+                    $arr = array(
+                        'category' => $category,
+                        'pic' => $images
+                    );
+                    array_push($allPictures, $arr);
                 }
-                print_r($images);
             }
-        } else {
+        }
+        if ($categoryFlag) {
+            $allCat = Picture::where('item_category', $searchUser)->get()->all();
+        }
+        if ($otherFlag) {
             $itemData = Picture::where($searchDb, $searchUser)->first();
         }
 
-        dd($allData);
+        //dd($allData);
 
         return view('/search', [
             'itemData' => $itemData,
-            'pictures' => $pictures
+            'pictures' => $allPictures,
+            'allCategories' => $allCat
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+        $this->validate($request, [
+            'picItemCategory' => 'required'
+        ]);
+
+        $allCat = Picture::where('item_category', $request->input('picItemCategory'))->get()->all();
+
+        return view('/search', [
+            'allCategories' => $allCat
         ]);
     }
 }

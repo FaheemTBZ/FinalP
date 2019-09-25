@@ -9,13 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "calcinai/php-imagick": "^0.1.2",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "laravel/ui": "^1.0",
-        "vajiral/php-image-compare": "^1.0"
+        "laravel/ui": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

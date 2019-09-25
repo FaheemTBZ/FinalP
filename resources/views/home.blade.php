@@ -14,7 +14,7 @@
                     <div class="intro-info">
                         <h2>We provide<br><span>solutions</span><br>for your business!</h2>
                         <div>
-                            <button type="button" id="btnGetStarted"class="btn btn-get-started btn-lg btn-outline-light">Get Started</button>
+                            <button type="button" id="btnGetStarted" class="btn rounded btn-get-started btn-lg btn-outline-light">Get Started</button>
                         </div>
                     </div>
 
@@ -76,8 +76,8 @@
                     <div class="intro-info">
                         <h2 class="text-center">Add Items or Supplier Details Here!</h2>
                         <div class="text-center">
-                            <button data-toggle="modal" data-target="#addItem" aria-expanded="false" type="button" class="btn btn-outline-light btn-get-started">Add Item Details</button>
-                            <button id="btnSupplier" data-toggle="modal" data-target="#addItem" aria-expanded="false" type="button" class="btn ml-2 mt-1 btn-outline-light btn-get-started">Add Supplier Details</button>
+                            <button data-toggle="modal" data-target="#addItem" aria-expanded="false" type="button" class="btn btn-outline-light btn-get-started rounded">Add Item Details</button>
+                            <button id="btnSupplier" data-toggle="modal" data-target="#addItem" aria-expanded="false" type="button" class="btn ml-2 mt-1 rounded btn-outline-light btn-get-started">Add Supplier Details</button>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
             
             <!-- Item Dialog -->
             <aside class="modal fade" id="addItem">
-                <section class="modal-dialog modal-dialog-centered">
+                <section class="modal-dialog modal-dialog-centered is-rounded">
                     <article class="modal-content p-4 shadow-lg">
                         <h2 class="text-center">Add New Item Detail Below</h2>
                         <br />
@@ -155,10 +155,6 @@
                 </section>
             </aside>
 
-            <button type="button" class="btn btnTop" id="btnTopScroll">
-                <i class="fa fa-arrow-up"></i>
-            </button>
-
         </div>
     </div>
 
@@ -193,9 +189,16 @@
             
             $('#btnGetStarted').on('click', function(){
                 $('html, body').animate({
-                    scrollTop: 900
+                    scrollTop: 1000
                 }, 'slow');
             });
+
+            $('#itemNumber').tooltip({'trigger':'hover', 'title': 'Enter Item Number, Numbers only'});
+            $('#itemCode').tooltip({'trigger':'hover', 'title': 'Enter Item code, Numbers only'});
+            $('#itemName').tooltip({'trigger':'hover', 'title': 'Enter Item name'});
+            $('#itemCategory').tooltip({'trigger':'hover', 'title': 'Enter Item Category'});
+            $('#itemDescription').tooltip({'trigger':'hover', 'title': 'Enter Items Description'});
+
 
         });
     </script>

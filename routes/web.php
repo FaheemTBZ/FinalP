@@ -22,3 +22,4 @@ Route::get('/search', 'SearchController@index')->name('search')->middleware('aut
 
 Route::post('/storeitem', 'PicturesController@store');
 Route::post('/searchpicture', 'SearchController@search');
+Route::post('/showitemcategories', 'SearchController@show');

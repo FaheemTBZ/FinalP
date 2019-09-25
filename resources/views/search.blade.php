@@ -8,11 +8,11 @@
             <!--==========================
                     Intro Section
             ============================-->
-            <section id="intro" class="clearfix sec">
+            <section class="clearfix">
                 <div class="container">
 
                     <div class="intro-info">
-                        <h2>Search for the Items Below by selecting any Criteria...</h2>
+                        <h1 class="text-center">Search for the Items Below by selecting any Criteria...</h1>
                     </div>
 
                     <br />
@@ -22,7 +22,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="itemSelect">Search By:</label>
-                            <select class="form-control" id="itemSelect">
+                            <select class="form-control form-control-lg" id="itemSelect">
                                 <option value="0">Select</option>
                                 <option value="1">Item Code</option>
                                 <option value="2">Item Name</option>
@@ -49,50 +49,103 @@
                             </div>
                         </div>
                         <input type="hidden" id="itemUnit" name="itemUnit" />
-                        <button type="submit" class="btn btn-outline-light btn-get-started btn-lg" id="btnSubmit" disabled>Search</button>
-
+                        <div class="text-center">
+                            <button type="submit" class="btn rounded btn-cyan btn-lg" id="btnSubmit" disabled>Search</button>
+                        </div>
                     </form>
 
                 </div>
             </section>
+            <br />
+            <br />
 
-            <footer class="footer p-4" style="background: #eee">
-                <div class="text-center">All Rights Reserved &copy 2019</div>
-            </footer>
+            <section class="row">
+                <article class="col">
+                    @if( isset($itemData) && strpos($itemData['item_images'], '|') === false )
+                    <div class="card card-item rounded-lg">
+                        <div class="card-body">
+                            <h4 class="card-title"><a>{{ $itemData['item_name'] }}</a></h4>
+                            <h6 class="card-subtitle">Code: {{ $itemData['item_code'] }} | Category: {{ $itemData['item_category'] }}</h6>
+                            <p class="card-text mt-2">{{ $itemData['item_description'] }}</p>
+                            <div class="itemPicCat">
+                                <img src="/image/{{ $itemData['item_images'] }}" alt="Card image cap">
+                            </div>
+                        </div>
+                    </div>
+                    @endif
 
-            <button type="button" class="btn btnTop">
-                <i class="fa fa-arrow-up"></i>
-            </button>
+                    @if( isset($itemData) && strpos($itemData['item_images'], '|') !== false )
+                    <div class="card card-item rounded-lg">
+                        <div class="card-body">
+                            <h4 class="card-title"><a>{{ $itemData['item_name'] }}</a></h4>
+                            <h6 class="card-subtitle">Code: {{ $itemData['item_code'] }} | Category: {{ $itemData['item_category'] }}</h6>
+                            <p class="card-text mt-2">{{ $itemData['item_description'] }}</p>
+                            <hr />
+                            <section class="img-container d-flex">
+                                @foreach( explode('|', $itemData['item_images']) as $pic )
+                                <img src="/image/{{ $pic }}" alt="{{ $itemData['item_name'] }}" />
+                                @endforeach
+                            </section>
+                        </div>
+                    </div>
+                    @endif
 
+                    @if( isset($pictures))
+                    <section class="row">
+                        @foreach( $pictures as $picture )
+                        <article class="col itemPic">
+                            <form action="/showitemcategories" method="POST" class="itemPicForm">
+                                @csrf
+                                <input type="hidden" name="picItemCategory" value="{{ array_key_exists('category', $picture) ? $picture['category'] : 'No Category' }}" />
+                                <div class="itemPic shadow">
+                                    <img src="/image/{{ array_key_exists('pic', $picture) ? $picture['pic'] : 'No Image'  }}" alt="{{ array_key_exists('category', $picture) ? $picture['category'] : 'Picture Item Details' }}" />
+                                </div>
+                            </form>
+                        </article>
+                        @endforeach
+                    </section>
+                    @endif
 
+                    @if( isset($allCategories) )
+                    <section class="row">
+                        @foreach( $allCategories as $cat )
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1 class="card-title">{{ $cat['item_category'] }}</h1>
+                                    <h4 class="card-subtitle">Code: {{ $cat['item_code'] }} | Name: {{ $cat['item_name'] }}</h4>
+                                    <br />
+                                    <p class="card-text">{{ $cat['item_description'] }}</p>
+                                    @if( strpos($cat['item_images'], '|') === false )
+                                    <div class="itemPicCat d-flex">
+                                        <img src="/image/{{ $cat['item_images'] }}" alt="">
+                                    </div>
+                                    @else
+                                    <div class="itemPicCat d-flex">
+                                        @foreach( explode('|', $cat['item_images']) as $pic )
+                                        <img src="/image/{{ $pic }}" alt="">
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </section>
+                    @endif
 
-            @if( isset($itemData) )
-            <hr />
-            <h4>{{ $itemData['item_name'] }}</h4>
-            <h6>{{ $itemData['item_code'] }}</h6>
-            <p>{{ $itemData['item_description'] }}</p>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
-            @foreach( explode('|', $itemData['item_images']) as $pic )
-            <div class="row">
-                <div class="col">
-                    <img style="width: 100%; height: 400px; margin-top: 1rem" src="/image/{{ $pic }}" alt="" />
-                </div>
-            </div>
-            @endforeach
-
-            @endif
-
-            @if( isset($pictures) )
-            <hr />
-            @foreach( $pictures as $picture )
-            <div class="row">
-                <div class="col">
-                    <img style="width: 100%; height: 400px; margin-top: 1rem" src="/image/{{ $picture }}" alt="" />
-                </div>
-            </div>
-            @endforeach
-
-            @endif
+                </article>
+            </section>
 
         </div>
     </div>
@@ -126,6 +179,10 @@
             $('html, body').animate({
                 scrollTop: 0
             }, 'slow');
+        });
+
+        $('.itemPicForm').on('click', function() {
+            this.submit();
         });
 
     });

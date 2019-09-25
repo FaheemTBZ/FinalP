@@ -56,31 +56,8 @@
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)
 }
 
-.login-container,
-.register-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #fff;
-    z-index: -1;
-    padding: 2rem
-}
 
-.login-card-container,
-.register-card-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    max-width: 100%
-}
-
-.login-card,
-.register-card,
-.new-item-card {
+.is-rounded {
     border-radius: 0 1.5rem 0 1.5rem
 }
 
@@ -88,15 +65,51 @@
     margin-top: -24px
 }
 
-.btnTop {
+#btnTopScroll {
     position: fixed;
     bottom: 16px;
     right: 16px;
-    border-radius: 50%;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
-    outline: none;
-    height: 54px;
-    width: 54px;
+    color: #fff
+}
+
+.rounded {
+    border-radius: 36px !important
+}
+
+.card-item {
+    width: 400px;
+    max-width: 100%;
+    margin: 2rem auto
+}
+
+.card-item img {
+    height: 100%;
+    max-height: 280px
+}
+
+.img-container {
+    height: 140px;
+    overflow: hidden
+}
+
+.itemPic {
+    width: 200px;
+    height: 200px;
+    margin-top: 1.75rem
+}
+
+.itemPic>img {
+    height: 100%;
+    width: 100%;
+}
+
+.itemPicCat {
+    flex-wrap: wrap
+}
+
+.itemPicCat>img {
+    max-width: 140px;
+    height: 140px;
 }
 
 /*--------------------------------------------------------------
