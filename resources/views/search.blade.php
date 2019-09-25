@@ -3,45 +3,68 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
 
-            <h1 class="text-center mt-5">Search Pictures Below..</h1>
+            <!--==========================
+                    Intro Section
+            ============================-->
+            <section id="intro" class="clearfix sec">
+                <div class="container">
 
-            <form action="/searchpicture" method="POST" id="theItemForm" enctype="multipart/form-data">
+                    <div class="intro-info">
+                        <h2>Search for the Items Below by selecting any Criteria...</h2>
+                    </div>
 
-            @csrf
-            <div class="form-group">
-                <label for="itemSelect">Search By:</label>
-                <select class="form-control" id="itemSelect">
-                    <option value="0">Select</option>
-                    <option value="1">Item Code</option>
-                    <option value="2">Item Name</option>
-                    <option value="3">Item Picture</option>
-                    <option value="4">Item Category</option>
-                </select>
-            </div>
-            <div class="collapse" id="itemCodeContainer">
-                <div class="form-group">
-                    <label for="itemCode">Item Code</label>
-                    <input type="number" id="itemCode" name="itemCode" class="form-control" />
+                    <br />
+
+                    <form action="/searchpicture" method="POST" id="theItemForm" enctype="multipart/form-data">
+
+                        @csrf
+                        <div class="form-group">
+                            <label for="itemSelect">Search By:</label>
+                            <select class="form-control" id="itemSelect">
+                                <option value="0">Select</option>
+                                <option value="1">Item Code</option>
+                                <option value="2">Item Name</option>
+                                <option value="3">Item Picture</option>
+                                <option value="4">Item Category</option>
+                            </select>
+                        </div>
+                        <div class="collapse" id="itemCodeContainer">
+                            <div class="form-group">
+                                <label for="itemCode">Item Code</label>
+                                <input type="number" id="itemCode" name="itemCode" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="collapse" id="itemNameContainer">
+                            <div class="form-group">
+                                <label for="itemName">Item Name</label>
+                                <input type="text" id="itemName" name="itemName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="collapse" id="itemCategoryContainer">
+                            <div class="form-group">
+                                <label for="itemCategory">Item Category</label>
+                                <input type="text" id="itemCategory" class="form-control" name="itemCategory" />
+                            </div>
+                        </div>
+                        <input type="hidden" id="itemUnit" name="itemUnit" />
+                        <button type="submit" class="btn btn-outline-light btn-get-started btn-lg" id="btnSubmit" disabled>Search</button>
+
+                    </form>
+
                 </div>
-            </div>
-            <div class="collapse" id="itemNameContainer">
-                <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <input type="text" id="itemName" name="itemName" class="form-control" />
-                </div>
-            </div>
-            <div class="collapse" id="itemCategoryContainer">
-                <div class="form-group">
-                    <label for="itemCategory">Item Category</label>
-                    <input type="text" id="itemCategory" class="form-control" name="itemCategory" />
-                </div>
-            </div>
-            <input type="hidden" id="itemUnit" name="itemUnit" />
-            <button type="submit" class="btn btn-outline-primary" id="btnSubmit" disabled>Search</button>
+            </section>
 
-            </form>
+            <footer class="footer p-4" style="background: #eee">
+                <div class="text-center">All Rights Reserved &copy 2019</div>
+            </footer>
+
+            <button type="button" class="btn btnTop">
+                <i class="fa fa-arrow-up"></i>
+            </button>
+
+
 
             @if( isset($itemData) )
             <hr />
@@ -56,7 +79,7 @@
                 </div>
             </div>
             @endforeach
-            
+
             @endif
 
             @if( isset($pictures) )
@@ -99,6 +122,11 @@
             }
         });
 
+        $('.btnTop').on('click', function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'slow');
+        });
 
     });
 </script>

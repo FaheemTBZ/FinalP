@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid login-container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
+        <div class="col-md-8 login-card-container">
+            <div class="card login-card shadow">
+                
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                <h1 class="text-center mb-3">Login Below.</h1>    
+                <hr />
+                <br />
+                <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">

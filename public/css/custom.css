@@ -8,7 +8,7 @@
 }
 
 .icon {
-    width: 30px
+    width: 40px
 }
 
 .preview {
@@ -17,8 +17,8 @@
 }
 
 .preview>img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     margin: .25rem
 }
 
@@ -54,4 +54,220 @@
 .z-elevation-6 {
     -webkit-box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12)
+}
+
+.login-container,
+.register-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: -1;
+    padding: 2rem
+}
+
+.login-card-container,
+.register-card-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 100%
+}
+
+.login-card,
+.register-card,
+.new-item-card {
+    border-radius: 0 1.5rem 0 1.5rem
+}
+
+.home-page-container {
+    margin-top: -24px
+}
+
+.btnTop {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .2);
+    outline: none;
+    height: 54px;
+    width: 54px;
+}
+
+/*--------------------------------------------------------------
+# Intro Section
+--------------------------------------------------------------*/
+
+#intro,
+.sec {
+    width: 100%;
+    position: relative;
+    background: #4e54c8;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 200px 50px;
+}
+
+.sec .intro-info h2 {
+    color: #fff;
+    margin-bottom: 40px;
+    font-size: 48px;
+    font-weight: 700;
+}
+
+@media (max-width: 770px){
+    .sec .intro-info h2 {
+        font-size: 30px
+    }
+    
+    .sec, #intro {
+        padding: 100px 50px
+    }
+    
+    #btnSupplier {
+        margin-left: 0 !important
+    }
+}
+
+.sec .intro-info h2 span {
+    color: #eee;
+    text-decoration: underline;
+}
+
+.btn-get-started {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: inline-block;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+
+#addDetails {
+    background: #11998e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #38ef7d, #11998e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/* Services Section
+--------------------------------*/
+
+#services {
+    padding: 60px 0 40px 0;
+    box-shadow: inset 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+}
+
+#services .box {
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 0 10px 40px 10px;
+    background: #fff;
+    box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1)
+}
+
+#services .title {
+    margin-left: 40px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+#services .title a {
+    color: #111;
+}
+
+#services .description {
+    font-size: 14px;
+    margin-left: 40px;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+
+#why-us {
+    padding: 60px 0;
+    background: #004a99;
+}
+
+#why-us .section-header h3,
+#why-us .section-header p {
+    color: #fff;
+}
+
+#why-us .card {
+    background: #00458f;
+    border-color: #00458f;
+    border-radius: 10px;
+    margin: 0 15px;
+    padding: 15px 0;
+    text-align: center;
+    color: #fff;
+    transition: 0.3s ease-in-out;
+    height: 100%;
+}
+
+#why-us .card:hover {
+    background: #003b7a;
+    border-color: #003b7a;
+}
+
+#why-us .card i {
+    font-size: 48px;
+    padding-top: 15px;
+    color: #bfddfe;
+}
+
+#why-us .card h5 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#why-us .card p {
+    font-size: 15px;
+    color: #d8eafe;
+}
+
+#why-us .card .readmore {
+    color: #fff;
+    font-weight: 600;
+    display: inline-block;
+    transition: 0.3s ease-in-out;
+    border-bottom: #00458f solid 2px;
+}
+
+#why-us .card .readmore:hover {
+    border-bottom: #fff solid 2px;
+}
+
+#why-us .counters {
+    padding-top: 40px;
+}
+
+#why-us .counters span {
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    font-size: 48px;
+    display: block;
+    color: #fff;
+}
+
+#why-us .counters p {
+    padding: 0;
+    margin: 0 0 20px 0;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    color: #cce5ff;
 }
